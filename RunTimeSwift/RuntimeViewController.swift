@@ -22,9 +22,7 @@ import UIKit
     @objc dynamic func methodTwo(){
         print("我是方法二")
     }
-    override init() {
-        super.init()
-    }
+   
 }
 
 
@@ -49,8 +47,7 @@ class RuntimeViewController: UIViewController {
     var funcIndex:Int = 0
     var functionStr:String? = ""
     private var functions:[String] = [
-        "autoInstanceControl","autoAddMethods","autoExchangeTwoMethods","replaceMethod","implementDixToModel"
-        
+        "autoAddProperty","autoInstanceControl","autoAddMethods","autoExchangeTwoMethods","replaceMethod","implementDixToModel"
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +65,15 @@ class RuntimeViewController: UIViewController {
     
     @objc private func clickBack(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //动态添加一个属性，读取添加的属性的值
+    @objc private func autoAddProperty(){
+        
+        objc_setAssociatedObject(self, "titleName", "HelloWorld", objc_AssociationPolicy.OBJC_ASSOCIATION_COPY_NONATOMIC)
+        guard let titleStr = objc_getAssociatedObject(self, "titleName") else { return }
+        print(titleStr)
+      
     }
     
     //动态变量控制

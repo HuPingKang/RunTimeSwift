@@ -11,6 +11,25 @@
 #import "RuntimeEx.h"
 
 @implementation RuntimeEx
+//
+////动态添加一个属性
+//+(void)class_addPropertyCls:(id)cls propertyName:(NSString *)propertyName value:(id)value{
+//    
+//    const char * testPropertyChar =[propertyName UTF8String];
+//    objc_setAssociatedObject(cls, &testPropertyChar, value, OBJC_ASSOCIATION_COPY_NONATOMIC);
+//
+//}
+//
+////动态获取一个属性的值
+//+(id)class_getPropertyCls:(id)cls propertyName:(NSString *)propertyName{
+//    
+//    const char * testPropertyChar =[propertyName UTF8String];
+//    
+//    id value = objc_getAssociatedObject(cls, &testPropertyChar);
+//    
+//    return value;
+//    
+//}
 
 //动态改变某一个成员变量的属性的值；
 +(void)class_changePropertyValue:(id)instance propertyName:(NSString *)name value:(id)value{

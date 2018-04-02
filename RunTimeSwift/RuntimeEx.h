@@ -10,6 +10,22 @@
 
 @interface RuntimeEx : NSObject
 
+///**
+// 动态添加一个属性
+// @param cls 属性所属的对象
+// @param propertyName 属性名称
+// @param value 属性对应的值
+// */
+//+(void)class_addPropertyCls:(id)cls propertyName:(NSString *)propertyName value:(id)value;
+//
+///**
+// 动态获取一个属性的值
+// @param cls 属性所属的对象
+// @param propertyName 属性名称
+// @return 属性的值
+// */
+//+(id)class_getPropertyCls:(id)cls propertyName:(NSString *)propertyName;
+
 /**
  动态改变某一个对象的属性的值；
  @param instance 对象

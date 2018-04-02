@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UITableViewController {
     
     fileprivate var functions:[String] = [
+                                        "动态添加一个属性",
                                         "动态变量控制",
                                         "动态添加方法",
                                         "动态交换两个方法的实现",
