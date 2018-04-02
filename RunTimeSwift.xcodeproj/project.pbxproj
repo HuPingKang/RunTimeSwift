@@ -15,6 +15,7 @@
 		4A57BCD4206DE23900D336F4 /* RunTimeSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A57BCD3206DE23900D336F4 /* RunTimeSwiftTests.swift */; };
 		4A57BCDF206DE23900D336F4 /* RunTimeSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A57BCDE206DE23900D336F4 /* RunTimeSwiftUITests.swift */; };
 		4A57BCED206DE54000D336F4 /* RuntimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A57BCEC206DE54000D336F4 /* RuntimeViewController.swift */; };
+		4AAD47872071D5AC004C79FC /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAD47862071D5AC004C79FC /* NSObject+Extension.swift */; };
 		4AFA1A3B206E0A2A00B4F497 /* RuntimeEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFA1A3A206E0A2A00B4F497 /* RuntimeEx.m */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		4A57BCE0206DE23900D336F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A57BCEC206DE54000D336F4 /* RuntimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeViewController.swift; sourceTree = "<group>"; };
 		4A57BCEE206E031E00D336F4 /* RunTimeSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RunTimeSwift-Bridging-Header.h"; sourceTree = "<group>"; };
+		4AAD47862071D5AC004C79FC /* NSObject+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
 		4AFA1A39206E0A2A00B4F497 /* RuntimeEx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RuntimeEx.h; sourceTree = "<group>"; };
 		4AFA1A3A206E0A2A00B4F497 /* RuntimeEx.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RuntimeEx.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,6 +110,7 @@
 				4A57BCEC206DE54000D336F4 /* RuntimeViewController.swift */,
 				4AFA1A39206E0A2A00B4F497 /* RuntimeEx.h */,
 				4AFA1A3A206E0A2A00B4F497 /* RuntimeEx.m */,
+				4AAD47862071D5AC004C79FC /* NSObject+Extension.swift */,
 				4A57BCC2206DE23900D336F4 /* Main.storyboard */,
 				4A57BCC5206DE23900D336F4 /* Assets.xcassets */,
 				4A57BCC7206DE23900D336F4 /* LaunchScreen.storyboard */,
@@ -270,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AAD47872071D5AC004C79FC /* NSObject+Extension.swift in Sources */,
 				4AFA1A3B206E0A2A00B4F497 /* RuntimeEx.m in Sources */,
 				4A57BCED206DE54000D336F4 /* RuntimeViewController.swift in Sources */,
 				4A57BCC1206DE23900D336F4 /* ViewController.swift in Sources */,

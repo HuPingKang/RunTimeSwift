@@ -32,7 +32,7 @@
 }
 
 //动态添加成员变量方法：
-+(void)class_addMethod:(Class)cls methodCls:(Class)selClass method:(SEL)selector varStr:(NSString *)varStr
++(void)class_addMethod:(id)cls methodCls:(id)selClass method:(SEL)selector varStr:(NSString *)varStr
 {
     const char * a =[varStr UTF8String];
     Method md = class_getInstanceMethod([selClass class], selector);
@@ -42,25 +42,26 @@
 }
 
 //动态交换两个方法的实现
-+(void)class_exchangeTwoMethods:(id)instance methodOne:(SEL)oneSel methodTwo:(SEL)twoSel{
++(void)class_exchangeTwoMethods:(id)oneInstance methodOne:(SEL)oneSel twoInstance:(id)twoInstance methodTwo:(SEL)twoSel{
     
-    Method m1 = class_getInstanceMethod([instance class], oneSel);
-    Method m2 = class_getInstanceMethod([instance class], twoSel);
+    Method m1 = class_getInstanceMethod([oneInstance class], oneSel);
+    Method m2 = class_getInstanceMethod([twoInstance class], twoSel);
     method_exchangeImplementations(m1, m2);
 
 }
 
-//动态拦截并替换方法
-+(void)class_replaceMethod:(id)instance methodOne:(SEL)oneSel methodTwo:(SEL)twoSel{
+//动态拦截并替换方法(在方法上增加额外功能)
++(void)class_replaceMethod:(id)oneInstance methodOne:(SEL)oneSel twoInstance:(id)twoInstance methodTwo:(SEL)twoSel{
     
-    Class selfClass = [instance class];
+    Class oneClass = [oneInstance class];
+    Class twoClass = [twoInstance class];
     
-    Method oriMethod = class_getInstanceMethod(selfClass, oneSel);
-    Method cusMethod = class_getInstanceMethod(selfClass, twoSel);
+    Method oriMethod = class_getInstanceMethod(oneClass, oneSel);
+    Method cusMethod = class_getInstanceMethod(twoClass, twoSel);
     
-    BOOL addSucc = class_addMethod(selfClass, oneSel, method_getImplementation(cusMethod), method_getTypeEncoding(cusMethod));
+    BOOL addSucc = class_addMethod(oneClass, oneSel, method_getImplementation(cusMethod), method_getTypeEncoding(cusMethod));
     if (addSucc) {
-        class_replaceMethod(selfClass, twoSel, method_getImplementation(oriMethod), method_getTypeEncoding(oriMethod));
+        class_replaceMethod(twoClass, twoSel, method_getImplementation(oriMethod), method_getTypeEncoding(oriMethod));
     }else {
         method_exchangeImplementations(oriMethod, cusMethod);
     }

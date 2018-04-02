@@ -10,9 +10,11 @@ import UIKit
 
 @objc class UserModel: NSObject {
     
-    var name:String? = ""
-    var isGirl:Bool? = false
-    
+    @objc var name:String? = ""
+          var isGirl:Bool? = false
+    @objc var address:String? = ""
+   
+    override func setValue(_ value: Any?, forUndefinedKey key: String) {}
     //要使用runtime，我们需要在想要使用runtime的方法或者属性前面加上dynamic关键字。
     @objc dynamic func methodOne(){
         print("我是方法一")
@@ -20,10 +22,26 @@ import UIKit
     @objc dynamic func methodTwo(){
         print("我是方法二")
     }
-    
+    override init() {
+        super.init()
+    }
 }
 
+
 class RuntimeViewController: UIViewController {
+    
+    private lazy var funcLabel:UILabel? = {
+        
+        let xx = UILabel()
+        xx.frame = CGRect.init(x: 0, y: 100, width: self.view.bounds.size.width, height: 200)
+        xx.textAlignment = .center
+        xx.textColor = UIColor.purple
+        xx.numberOfLines = 0
+        xx.font = UIFont.init(name: "PingFang-SC-Medium", size: 20)
+        self.view.addSubview(xx)
+        return xx
+        
+    }()
     
     @objc private dynamic var userGirl:UserModel? = UserModel()
     @objc private dynamic var userBoy:UserModel? = UserModel()
@@ -31,8 +49,8 @@ class RuntimeViewController: UIViewController {
     var funcIndex:Int = 0
     var functionStr:String? = ""
     private var functions:[String] = [
-        "autoInstanceControl","autoAddMethods","autoExchangeTwoMethods","replaceMethod","addMethodExtraFunc","implementNSCodingUnacrivieOrArchive","implementDixToModel"
-    
+        "autoInstanceControl","autoAddMethods","autoExchangeTwoMethods","replaceMethod","implementDixToModel"
+        
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +62,7 @@ class RuntimeViewController: UIViewController {
         //执行方法；
         let sel:Selector = NSSelectorFromString(self.functions[self.funcIndex])
         self.performSelector(onMainThread: sel, with: nil, waitUntilDone: false)
+        self.funcLabel?.text = "执行:" + self.functions[self.funcIndex]
         
     }
     
@@ -82,32 +101,38 @@ class RuntimeViewController: UIViewController {
     
     //动态交换两个方法的实现
     @objc private func autoExchangeTwoMethods(){
-        RuntimeEx.class_exchangeTwoMethods(self.userGirl?.classForCoder, methodOne: #selector(self.userGirl?.methodOne), methodTwo: #selector(self.userGirl?.methodTwo))
+        RuntimeEx.class_exchangeTwoMethods(self.userGirl, methodOne: #selector(self.userGirl?.methodOne), twoInstance: self, methodTwo: #selector(self.exchangeTwoMethod))
         self.userGirl?.methodOne()
         
     }
-    //拦截并替换方法
+    
+    @objc private func exchangeTwoMethod(){
+        print("交换了两个方法")
+    }
+    
+    //动态拦截并替换方法(在方法上增加额外功能)
     @objc private func replaceMethod(){
         
-        RuntimeEx.class_replaceMethod(self.userGirl, methodOne: #selector(self.userGirl?.methodOne), methodTwo: #selector(self.replaceFunc))
+        RuntimeEx.class_replaceMethod(self.userGirl, methodOne: #selector(self.userGirl?.methodOne), twoInstance: self, methodTwo: #selector(self.replaceFunc))
         self.userGirl?.methodOne()
         
     }
     
     @objc dynamic private func replaceFunc(){
-        print("拦截并替换方法")
+        print("动态拦截并替换方法(在方法上增加额外功能)")
     }
     
-    //在方法上增加额外功能
-    @objc private func addMethodExtraFunc(){
-        
-    }
-    //实现NSCoding的自动归档和解档
-    @objc private func implementNSCodingUnacrivieOrArchive(){
-        
-    }
     //实现字典转模型的自动转换
     @objc private func implementDixToModel(){
+        let dict:[String : Any] =
+            [
+                "name" : "Jay Zhou",
+                "isGirl": true,
+                "address":"复旦大学"
+        ]
+        
+        let info:UserModel = UserModel.init(dic:dict)
+        print(info.name ?? "" , info.isGirl ?? false , info.address ?? "")
         
     }
     
